@@ -28,7 +28,6 @@ jobs:
 
       - name: Run tests
         run: docker build --file Dockerfile
-          fi
 
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
