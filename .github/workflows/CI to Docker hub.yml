@@ -56,11 +56,11 @@ jobs:
           push: true
 
           tags: |
-            ghcr.io/dnvntr/generic-extension:1.0.0
-            dnvntr/generic-extension:1.0.0
+            ghcr.io/dnvntr/generic-extension:latest
+            dnvntr/generic-extension:latest
 
           cache-from: |
-                        user/app:cache
+                        dnvntr/generic-extension:cache
                         type=local,src=path/to/dir
 
       -
