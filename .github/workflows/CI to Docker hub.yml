@@ -43,7 +43,7 @@ jobs:
 
           push: true
 
-          tags: generic-extension:latest
+          tags: generic-extension/generic-extension:latest
 
       -
 
