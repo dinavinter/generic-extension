@@ -1,6 +1,6 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericExtesion", "GenericExtesion\GenericExtesion.csproj", "{E15EAA51-2174-42E3-9B8E-0F932A036C9A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericExtesion", "GenericExtesion.csproj", "{E15EAA51-2174-42E3-9B8E-0F932A036C9A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".sln", ".sln", "{FDA57C16-0855-48C7-8837-2932DC3E43DC}"
 ProjectSection(SolutionItems) = preProject
