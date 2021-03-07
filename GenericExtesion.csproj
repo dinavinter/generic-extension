@@ -34,7 +34,9 @@
     </ItemGroup>
 
     <PropertyGroup>
-<!--        <PublishSingleFile>true</PublishSingleFile>-->
+        <DockerfileContext>.</DockerfileContext>
+
+        <!--        <PublishSingleFile>true</PublishSingleFile>-->
 <!--        <SelfContained>true</SelfContained>-->
 <!--        <RuntimeIdentifier>linux-x64</RuntimeIdentifier>-->
 <!--        <PublishTrimmed>true</PublishTrimmed>-->
