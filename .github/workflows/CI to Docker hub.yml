@@ -56,10 +56,8 @@ jobs:
           push: true
 
           tags: |
-            user/generic-extension:latest
-            ghcr.io/user/generic-extension:latest
-            ghcr.io/dnvntr/app:1.0.0
-            dnvntr/app:1.0.0
+            ghcr.io/dnvntr/generic-extension:1.0.0
+            dnvntr/generic-extension:1.0.0
 
           cache-from: |
                         user/app:cache
