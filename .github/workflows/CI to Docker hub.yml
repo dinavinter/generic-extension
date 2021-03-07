@@ -14,7 +14,15 @@ jobs:
     runs-on: ubuntu-latest
  
     steps:
-      - uses: actions/checkout@v2
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
       -
 
         name: Login to GitHub Container Registry
@@ -22,8 +30,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.CR_PAT }} 
-          
+          password: ${{ secrets.CR_PAT }}           
       -
 
         name: Build and push
@@ -41,6 +48,9 @@ jobs:
           push: true
 
           tags: dnvntr/generic-extension:latest
+          cache-from: |
+                        user/app:cache
+                        type=local,src=path/to/dir
 
       -
 
