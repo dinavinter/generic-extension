@@ -16,6 +16,11 @@
       </None>
     </ItemGroup>
 
+    <Target Name="BuildDocker" AfterTargets="Publish" Condition="">
+        <Exec Command="docker build -t generic-extention Dockerfile"/>
+    </Target>
+
+    
     <ItemGroup>
       <_ContentIncludedByDefault Remove="publish\linux-x64\publish\Web.config" />
       <_ContentIncludedByDefault Remove="publish\linux-x64\Web.config" />
