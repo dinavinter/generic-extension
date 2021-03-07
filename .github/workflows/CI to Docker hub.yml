@@ -40,7 +40,7 @@ jobs:
 
           push: true
 
-          tags: generic-extension/generic-extension:latest
+          tags: dnvntr/generic-extension:latest
 
       -
 
