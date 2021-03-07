@@ -17,7 +17,7 @@
     </ItemGroup>
 
     <Target Name="BuildDocker" AfterTargets="Publish" Condition="">
-        <Exec Command="docker build -t generic-extention Dockerfile"/>
+        <Exec Command="docker build -t generic-extention -c ./ Dockerfile"/>
     </Target>
 
     
