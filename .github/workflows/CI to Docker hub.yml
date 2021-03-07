@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
  
     steps:
+      -
 
         name: Login to DockerHub
 
@@ -44,7 +45,7 @@ jobs:
 
           push: true
 
-          tags: $IMAGE_NAME:latest
+          tags: generic-extension:latest
 
       -
 
