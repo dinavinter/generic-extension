@@ -1,0 +1,42 @@
+{
+  "apiKey": "3_PQgqiQXetgHG38M2Av2IrIYdz28KtxJiAQoFZE8xzVTyYZXzJlPcn9KfcYS_jFx4",
+  "callID": "806axxxsdad0df",
+  "extensionPoint": "OnBeforeAccountsLogin",
+  "data": {
+    "params": {
+      "loginId": "test@gigya.com",
+      "password": "password500",
+      "lang": "en"
+    },
+    "accountInfo": {
+      "registeredTimestamp": 1530197465,
+      "UID": "38c89e3f073147afaf455afee22eac3a",
+      "created": "2018-06-28T14:50:55.859Z",
+      "createdTimestamp": 1530197455,
+      "data": {
+        "terms": true
+      },
+      "subscriptions": {},
+      "preferences": {},
+      "isActive": true,
+      "isRegistered": true,
+      "isVerified": false,
+      "lastLogin": "2018-06-28T14:52:23.594Z",
+      "lastLoginTimestamp": 1530197543,
+      "lastUpdated": "2018-06-28T14:51:05.291Z",
+      "lastUpdatedTimestamp": 1530197465291,
+      "loginProvider": "site",
+      "oldestDataUpdated": "2018-06-28T14:50:55.859Z",
+      "oldestDataUpdatedTimestamp": 1530197455859,
+      "profile": {
+        "firstName": "Name",
+        "email": "test@gigya.com"
+      },
+      "registered": "2018-06-28T14:51:05.291Z",
+      "socialProviders": "site"
+    },
+    "context": {
+      "clientIP": "1.0.0.0"
+    }
+  }
+}

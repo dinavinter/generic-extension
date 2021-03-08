@@ -2,13 +2,27 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);1591</NoWarn>
+
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="EntityFramework" Version="6.4.4" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.3" />
       <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+      <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="6.1.0" />
     </ItemGroup>
 
     <ItemGroup>
+      <None Include=".seed\onLoginPayload.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory> 
+      </None>
+        <None Include=".seed\extensions.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory> 
+        </None>
       <None Include="Web.config">
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -33,6 +47,8 @@
       <_ContentIncludedByDefault Remove="publish\linux-x64\publish\appsettings.json" />
     </ItemGroup>
 
+    
+   
     <PropertyGroup>
         <DockerfileContext>.</DockerfileContext>
 

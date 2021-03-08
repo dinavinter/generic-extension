@@ -11,7 +11,9 @@ using System.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace GenericExtesion.Controllers
 {
@@ -20,43 +22,49 @@ namespace GenericExtesion.Controllers
     public class ExtensionController : ControllerBase
     {
         private readonly ILogger<ExtensionController> _logger;
+        private readonly ExtensionDbContext _extensionDbContext;
 
-        public ExtensionController(ILogger<ExtensionController> logger)
+        public ExtensionController(ILogger<ExtensionController> logger, ExtensionDbContext extensionDbContext)
         {
             _logger = logger;
+            _extensionDbContext = extensionDbContext;
         }
 
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     POST /ExtensionModel
-        ///     {
-        ///        "Result": { "Status": "FAIL",  "Data": { "userFacingErrorMessage" : "You Suck!" } }
-        ///       
-        ///     }
-        ///
-        /// </remarks>
+
+    
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [SwaggerRequestExample(typeof(ExtensionModel), typeof(ExtensionModelExample))]
         public async Task<ActionResult<Extension>> Put(ExtensionModel extensionModel)
-        {
-            var extensionId = await UnzipAsync(extensionModel);
+       {
+           var extensionId = await _extensionDbContext.UpsertJsonAsync(extensionModel, extensionModel.Id);
             return Created($"{Request.GetDisplayUrl()}/{extensionId}", new Extension()
             {
                 ExtensionId = extensionId
             });
         }
+   
 
-
-        [HttpGet("{extension}")]
-        public async Task<dynamic> Get([FromRoute]string extension)
-        {
-            var extensionModel = await ZipAsync<ExtensionModel>(extension);
-            await Task.Delay(extensionModel.DelayMs);
-            
-            return extensionModel.Result;
-        }
+       /// <param name="extension" example="set_require_password_change">The extension</param> 
+        [HttpPost("{extension}")] 
+        public async Task<dynamic> Execute([FromRoute]string extension, [FromBody] JsonElement payload)
+       {
+           var extensionModel = await _extensionDbContext.FindJsonAsync<ExtensionModel>(  extension);
+           if (extensionModel == null)
+               return NotFound();
+           
+            await Task.Delay(extensionModel.DelayMs); 
+              
+            extensionModel
+                .HttpCalls[0]
+                .RequestParameters
+                .ToDictionary(e=> e.Key, e=>e.Value?.ToString().Replace())
+                
+                
+            Response.Headers["X-DelayFor"] = TimeSpan.FromMilliseconds(extensionModel.DelayMs).ToString();
+            return Ok(extensionModel.Result ?? new {Status = "Ok"});
+       }
 
 
         async Task<T> ZipAsync<T>(string inputStr)

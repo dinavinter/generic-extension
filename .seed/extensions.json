@@ -1,0 +1,26 @@
+[
+  {
+    "id": "set_require_password_change",
+    "httpCalls": [
+      {
+        "baseUrl": null,
+        "requestParameters": {
+          "uid": "${data.accountInfo.uid}",
+          "requirePasswordChange": true,
+          "client_id": "${apiKey}",
+          "oauth_token": "${st2.s.AcbHpnRbvw.w6EnvRmwGWfH102lvUx_dc2NwrHikBJS4EJ7h2_PQ-uN2PiCi4UKwKdcGOTGRFHKe-eGr1I3Ih-W3IdC01Iixg.9t3Yff8nzk5ivDDTW7EQMTBBi_4PWnondFvxf4uz0OHTnrsdq_RiQTRpwD7oVuQyfX7n6YFtDEk1enzlKq2fzw.sc3}"
+        },
+        "requestHeaders": {
+          "XGigyaTestName": "requirePasswordChange on login extension"
+        }
+      }
+    ],
+    "delayMs": 1000,
+    "result": {
+      "Status": "FAIL",
+      "Data": {
+        "userFacingErrorMessage": "You Suck!"
+      }
+    }
+  }
+]
