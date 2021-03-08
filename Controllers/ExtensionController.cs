@@ -47,6 +47,7 @@ namespace GenericExtesion.Controllers
    
 
        /// <param name="extension" example="set_require_password_change">The extension</param> 
+       /// <param name="payload" example="{}">The extension</param> 
         [HttpPost("{extension}")] 
         public async Task<dynamic> Execute([FromRoute]string extension, [FromBody] JsonElement payload)
        {
