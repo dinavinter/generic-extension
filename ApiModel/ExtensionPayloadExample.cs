@@ -1,16 +1,23 @@
+using System.Dynamic;
 using System.IO;
 using System.Text.Json;
+using Newtonsoft.Json.Converters;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace GenericExtesion
 {
-    public class ExtensionPayloadExample: IExamplesProvider<JsonElement>
+    public class ExtensionPayloadExample: IExamplesProvider<ExpandoObject>
     {
-        public JsonElement GetExamples()
+        public ExpandoObject GetExamples()
         {
-            return JsonDocument.Parse(File.OpenRead(".seed/onLoginPayload.json")).RootElement;
+            return JsonSerializer.Deserialize<ExpandoObject>(File.ReadAllText(".seed/onLoginPayload.json"));
         }
     }
-    
+
+
+    // public class Payload : ExpandoObjectConverter
+    // {
+    //     
+    // }
     
 }
