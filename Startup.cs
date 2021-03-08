@@ -45,6 +45,7 @@ namespace GenericExtesion
             });
 
             services.AddSwaggerExamplesFromAssemblyOf<ExtensionModelExample>();
+            services.AddSwaggerExamplesFromAssemblyOf<ExtensionPayloadExample>();
 
             services
                 .AddDbContext<ExtensionDbContext>(options => options.UseInMemoryDatabase("ExtensionDb"))
