@@ -56,10 +56,6 @@ namespace GenericExtesion.Controllers
            
             await Task.Delay(extensionModel.DelayMs); 
               
-            extensionModel
-                .HttpCalls[0]
-                .RequestParameters
-                .ToDictionary(e=> e.Key, e=>e.Value?.ToString().Replace())
                 
                 
             Response.Headers["X-DelayFor"] = TimeSpan.FromMilliseconds(extensionModel.DelayMs).ToString();
