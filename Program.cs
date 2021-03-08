@@ -18,6 +18,11 @@ namespace GenericExtesion
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+                .ConfigureWebHostDefaults(webBuilder =>
+                { 
+                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseUrls("http://*:" + Environment.GetEnvironmentVariable("PORT")); 
+ 
+                });
     }
 }
