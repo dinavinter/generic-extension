@@ -63,30 +63,6 @@ namespace GenericExtesion.Controllers
        }
 
 
-        async Task<T> ZipAsync<T>(string inputStr)
-        {
-            var inputBytes = Convert.FromBase64String(Uri.UnescapeDataString(inputStr));
-            await using var inputStream = new MemoryStream(inputBytes);
-            await using var gZipStream = new GZipStream(inputStream, CompressionMode.Decompress);
-            using var streamReader = new StreamReader(gZipStream);
-            //var decompressed = await streamReader.ReadToEndAsync();
-            return await JsonSerializer.DeserializeAsync<T>(streamReader.BaseStream);
-        }
-
-        async Task<string> UnzipAsync(object value)
-        {
-            var inputBytes = JsonSerializer.SerializeToUtf8Bytes(value);
-
-            await using var msi = new MemoryStream(inputBytes);
-            await using var mso = new MemoryStream();
-            await using (var gs = new GZipStream(mso, CompressionMode.Compress))
-            {
-                await msi.CopyToAsync(gs);
-            }
-
-            return Uri.EscapeDataString(Convert.ToBase64String(mso.ToArray()));
-        }
-
         
     }
 }
