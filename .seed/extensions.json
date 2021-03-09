@@ -3,21 +3,34 @@
     "id": "set_require_password_change",
     "httpCalls": [
       {
-        "baseUrl": null,
+        "baseUrl": "https://accounts.gigya.com/accounts.setAccountInfo",
         "requestParameters": {
-          "uid": "${data.accountInfo.uid}",
+          "uid": "$data.accountInfo.UID",
           "requirePasswordChange": true,
-          "client_id": "${apiKey}",
-          "oauth_token": "${st2.s.AcbHpnRbvw.w6EnvRmwGWfH102lvUx_dc2NwrHikBJS4EJ7h2_PQ-uN2PiCi4UKwKdcGOTGRFHKe-eGr1I3Ih-W3IdC01Iixg.9t3Yff8nzk5ivDDTW7EQMTBBi_4PWnondFvxf4uz0OHTnrsdq_RiQTRpwD7oVuQyfX7n6YFtDEk1enzlKq2fzw.sc3}"
+          "client_id": "$apiKey",
+          "oauth_token": "st2.s.AcbHpnRbvw.w6EnvRmwGWfH102lvUx_dc2NwrHikBJS4EJ7h2_PQ-uN2PiCi4UKwKdcGOTGRFHKe-eGr1I3Ih-W3IdC01Iixg.9t3Yff8nzk5ivDDTW7EQMTBBi_4PWnondFvxf4uz0OHTnrsdq_RiQTRpwD7oVuQyfX7n6YFtDEk1enzlKq2fzw.sc3"
         },
         "requestHeaders": {
-          "XGigyaTestName": "requirePasswordChange on login extension"
+          "XGigyaTestName": "requirePasswordChange-on-login-extension"
         }
       }
     ],
-    "delayMs": 1000,
+    "delayMs": 0,
     "result": {
-      "Status": "FAIL",
+      "Status": "Ok",
+      "Data": {
+        "userFacingErrorMessage": "You Suck!"
+      }
+    }
+  },
+  {
+    "id": "delay_3000",
+    "httpCalls": [
+      
+    ],
+    "delayMs": 3000,
+    "result": {
+      "Status": "Fail",
       "Data": {
         "userFacingErrorMessage": "You Suck!"
       }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.Encodings.Web;
 using System.Text.Json.Serialization;
+using GenericExtesion.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -46,7 +47,8 @@ namespace GenericExtesion
 
             services.AddSwaggerExamplesFromAssemblyOf<ExtensionModelExample>();
             services.AddSwaggerExamplesFromAssemblyOf<ExtensionPayloadExample>();
-
+            services.AddHttpClient();
+            services.AddHttpClient<ExtensionController>();
             services
                 .AddDbContext<ExtensionDbContext>(options => options.UseInMemoryDatabase("ExtensionDb"))
                 .AddEntityFrameworkInMemoryDatabase();

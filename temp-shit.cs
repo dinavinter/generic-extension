@@ -67,6 +67,29 @@ namespace GenericExtesion
         //
         //     return Uri.EscapeDataString(Convert.ToBase64String(mso.ToArray()));
         // }
+        
+        
+        
+        //
+        // private IEnumerable<(string path, object value)> IterateObject(ExpandoObject input)
+        // {
+        //     return Iterate(input);
+        //     IEnumerable<(string path, object value)> Iterate(ExpandoObject value)
+        //     {
+        //         return value
+        //             .Where(e => e.Value.GetType().IsValueType || e.Value is string)
+        //             .Select(e => (path: e.Key, value: e.Value))
+        //             .Concat(
+        //                 value
+        //                     .Where(e => e.Value is ExpandoObject)
+        //                     .SelectMany(e => Iterate( e.Value  as ExpandoObject)
+        //                         .Select(inner => (path: $"{e.Key}.{inner.path}", value: inner.value))
+        //                     ));
+        //         
+        //           
+        //     }
+        //        
+        // }
 
     }
 }
