@@ -10,7 +10,7 @@ using Swashbuckle.AspNetCore.Filters;
 namespace GenericExtesion.Controllers
 {
     [ApiController]
-    [Route("{extensionId}/run")]
+    [Route("extension/{extensionId}/run")]
     public class ExtensionRunnerController : ControllerBase
     {
         private readonly ILogger<ExtensionRunnerController> _logger;
