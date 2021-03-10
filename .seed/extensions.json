@@ -15,10 +15,9 @@
         }
       }
     ],
-    "delayMs": 0,
-    "result": {
-      "Status": "Ok",
-      "Data": {
+     "result": {
+      "status": "OK",
+      "data": {
         "userFacingErrorMessage": "You Suck!"
       }
     }

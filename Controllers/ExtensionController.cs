@@ -24,71 +24,52 @@ using Swashbuckle.AspNetCore.Filters;
 namespace GenericExtesion.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("extension")]
     public class ExtensionController : ControllerBase
     {
         private readonly ILogger<ExtensionController> _logger;
         private readonly ExtensionDbContext _extensionDbContext;
-        private readonly HttpClient _httpClient;
  
-        public ExtensionController(ILogger<ExtensionController> logger, ExtensionDbContext extensionDbContext, IHttpClientFactory httpClientFactory)
+        public ExtensionController(ILogger<ExtensionController> logger, ExtensionDbContext extensionDbContext,
+            IHttpClientFactory httpClientFactory)
         {
             _logger = logger;
             _extensionDbContext = extensionDbContext;
-            _httpClient = httpClientFactory.CreateClient(); 
-        }
-
-
-    
+         }
+ 
+        
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [SwaggerRequestExample(typeof(ExtensionModel), typeof(ExtensionModelExample))]
         public async Task<ActionResult<Extension>> Put(ExtensionModel extensionModel)
-       {
-           var extensionId = await _extensionDbContext.UpsertJsonAsync(extensionModel, extensionModel.Id);
+        {
+            var extensionId = await _extensionDbContext.UpsertJsonAsync(extensionModel, extensionModel.Id);
             return Created($"{Request.GetDisplayUrl()}/{extensionId}", new Extension()
             {
                 ExtensionId = extensionId
             });
         }
 
-
-        /// <param name="extension" example="set_require_password_change">The extension</param> 
-        [HttpPost("{extension}")]
-        public async Task<dynamic> Execute([FromRoute] string extension, [FromBody] ExtensionPayload payload)
+        /// <param name="extensionId" example="set_require_password_change">The extension</param> 
+        [HttpPost("{extensionId}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [SwaggerRequestExample(typeof(ExtensionModel), typeof(ExtensionModelExample))]
+        public async Task<ActionResult<Extension>> Post(string extensionId, ExtensionModel extensionModel)
         {
-            var extensionModel = await _extensionDbContext.FindJsonAsync<ExtensionModel>(extension);
-            if (extensionModel == null)
-                return NotFound();
+            await _extensionDbContext.UpsertJsonAsync(extensionModel, extensionId);
+            return Created($"Request.GetDisplayUrl()", extensionModel);
+        }
 
-            await Task.Delay(extensionModel.DelayMs);
-
-          await  Task.WhenAll(extensionModel.HttpCalls
-                .Select(
-                    e => new HttpRequestMessage()
-                    {
-                        RequestUri = new UriBuilder(e.BaseUrl)
-                        {
-                            Query = string.Join('&', e.RequestParameters.Select(e =>
-                                $"{e.Key}={payload.GetValue(e.Value?.ToString())}"))
-                        }.Uri,
-
-
-
-                    }).Select(message => _httpClient.SendAsync(message)));
-                ;
-        
-
-
-        Response.Headers["X-DelayFor"] = TimeSpan.FromMilliseconds(extensionModel.DelayMs).ToString();
-            // return Ok(  JObject.FromObject(payload).Descendants().Select(e=>$"{e.Path}-{((JProperty)e).Value}").ToArray());
-            // return Ok(IterateObject(payload).Select(e=>$"{e.path}-{e.value}").ToArray());
-            return Ok(extensionModel.Result ?? new {Status = "Ok"});
-       }
-
-       
-       
- 
+        /// <param name="extensionId" example="delay_3000">The extension</param> 
+        [HttpGet("{extensionId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [SwaggerResponseExample(statusCode:0, typeof(ExtensionModelExample))]
+        public async Task<ExtensionModel> Get(string extensionId)
+        {
+            return await _extensionDbContext.FindJsonAsync<ExtensionModel>(extensionId);
+        }
     }
 }

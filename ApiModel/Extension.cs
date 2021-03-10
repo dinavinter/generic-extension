@@ -35,6 +35,8 @@ namespace GenericExtesion
 
         public int DelayMs { get; set; }
         public dynamic Result { get; set; }
+        
+        
     }
 
 

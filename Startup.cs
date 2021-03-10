@@ -48,7 +48,7 @@ namespace GenericExtesion
             services.AddSwaggerExamplesFromAssemblyOf<ExtensionModelExample>();
             services.AddSwaggerExamplesFromAssemblyOf<ExtensionPayloadExample>();
             services.AddHttpClient();
-            services.AddHttpClient<ExtensionController>();
+            services.AddHttpClient<ExtensionRunnerController>();
             services
                 .AddDbContext<ExtensionDbContext>(options => options.UseInMemoryDatabase("ExtensionDb"))
                 .AddEntityFrameworkInMemoryDatabase();
