@@ -49,7 +49,7 @@ namespace GenericExtesion.Controllers
                 .Select(LogResponse));
 
             Response.Headers["X-DelayFor"] = TimeSpan.FromMilliseconds(extensionModel.DelayMs).ToString();
-            return Ok(extensionModel.Result ?? new {Status = "Ok"});
+            return Ok(extensionModel.Result ?? new {status = "OK"});
         }
 
         private async Task LogResponse(Task<HttpResponseMessage> response) => Log(await Json(await response));
