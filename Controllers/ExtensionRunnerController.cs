@@ -54,8 +54,17 @@ namespace GenericExtesion.Controllers
         }
 
 
-        void Log(JsonElement json) => _logger.LogInformation($"response error code {ErrorCode(json)}");
+        void Log(JsonElement json) => _logger.LogInformation($"response error code {ErrorCode(json)} {ErrorMessage(json)} callId: {CallID(json)} ");
 
-        int ErrorCode(JsonElement json) => json.GetProperty("errorCode").GetInt32();
+        int? ErrorCode(JsonElement json) =>  TryGetProperty(json, "errorCode")?.GetInt32();
+        string? ErrorMessage(JsonElement json) =>TryGetProperty(json,"errorMessage")?.GetString();
+        string? CallID(JsonElement json) => TryGetProperty(json, "callId")?.GetString();
+        
+        JsonElement? TryGetProperty(JsonElement json, string property)
+        {
+            if(json.TryGetProperty(property, out var element))
+                return element;
+            return null;
+        }
     }
 }
