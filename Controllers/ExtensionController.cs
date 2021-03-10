@@ -59,7 +59,7 @@ namespace GenericExtesion.Controllers
         public async Task<ActionResult<Extension>> Post(string extensionId, ExtensionModel extensionModel)
         {
             await _extensionDbContext.UpsertJsonAsync(extensionModel, extensionId);
-            return Created($"Request.GetDisplayUrl()", extensionModel);
+            return Created(Request.GetDisplayUrl(), extensionModel);
         }
 
         /// <param name="extensionId" example="delay_3000">The extension</param> 
