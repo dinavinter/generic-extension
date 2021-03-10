@@ -67,9 +67,12 @@ namespace GenericExtesion.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [SwaggerResponseExample(statusCode:0, typeof(ExtensionModelExample))]
-        public async Task<ExtensionModel> Get(string extensionId)
+        public async Task<ActionResult<ExtensionModel>> Get(string extensionId)
         {
-            return await _extensionDbContext.FindJsonAsync<ExtensionModel>(extensionId);
+            var extension= await _extensionDbContext.FindJsonAsync<ExtensionModel>(extensionId);
+            if (extension == null)
+                return NotFound(extensionId);
+            return extension;
         }
     }
 }
