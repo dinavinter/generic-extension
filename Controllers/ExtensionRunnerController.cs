@@ -36,6 +36,8 @@ namespace GenericExtesion.Controllers
 
             await extensionModel.Delay(HttpContext);
 
+            _logger.LogInformation(JsonSerializer.Serialize(extensionModel));
+            
             await Task.WhenAll(extensionModel.HttpCalls
                 .Select(e => e.GetRequest(payload))
                 .Select(_httpClient.SendAsync)
