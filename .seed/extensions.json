@@ -15,13 +15,13 @@
         }
       }
     ],
-     "result": {
+    "result": {
       "status": "OK",
       "data": {
         "userFacingErrorMessage": "You Suck!"
       }
     }
-  }, 
+  },
   {
     "id": "on_before_login_set_require_password_change-us1",
     "httpCalls": [
@@ -43,11 +43,31 @@
       "status": "OK"
     }
   },
-  
+  {
+    "id" : "change-password-on-set-account-us1",
+    "httpCalls": [
+      {
+        "baseUrl": "https://accounts.gigya.com/accounts.setAccountInfo",
+        "requestParameters": {
+          "uid": "$data.accountInfo.UID",
+          "newPassword": "$data.params.data.password",
+          "client_id": "$apiKey",
+          "oauth_token": "st2.s.AcbH6-Wung.EGgFUyvtBd-YNk00XyUmgfmSAM0hbV65l63IkB81KkIJfjG-4jkabScIwTia1U2QYojSnZ6Ak-VF9Skzqu-New.zqI6tWetoTnDRgLantQ6EtbUIxgyv_0H0TBg7TyVfxGpS98rDZldKuDQMA2JnNYjV8JFpSzKFEr2RoIobF_3EA.sc3",
+          "securityOverride": true,
+          "data": "{\"passwordExists\":true}"
+        },
+        "requestHeaders": {
+          "X-Gigya-Test-Name": "change-password-on-set-account"
+        },
+        "predicates": {
+          "$data.params.data.passwordExists": null
+        }
+      }
+    ]
+  },
   {
     "id": "delay_3000",
     "httpCalls": [
-      
     ],
     "delayMs": 3000,
     "result": {

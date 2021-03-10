@@ -32,7 +32,7 @@ namespace GenericExtesion
             
             if (value?.StartsWith("$") == true)
             {
-                return _jsonDocument.SelectToken(value.TrimStart('$'))?.GetString();
+                return _jsonDocument.SelectToken(value.TrimStart('$'))?.GetRawText().TrimStart('"').TrimEnd('"');
                 // return _tokens.FirstOrDefault(x => x.Path == value.TrimStart('$')).Value;
             }
 
