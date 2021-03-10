@@ -21,7 +21,29 @@
         "userFacingErrorMessage": "You Suck!"
       }
     }
+  }, 
+  {
+    "id": "on_before_login_set_require_password_change-us1",
+    "httpCalls": [
+      {
+        "baseUrl": "https://accounts.gigya.com/accounts.setAccountInfo",
+        "requestParameters": {
+          "uid": "$data.accountInfo.UID",
+          "requirePasswordChange": true,
+          "client_id": "$apiKey",
+          "oauth_token": "st2.s.AcbH1m3q9g.U7adbz1VHTw34D4emw_9VpIUj8hxUbjc-jjjjDfoIgQpoYkO7zwvNBb7UihmHEJTBg9MqjDu9Z2zjcQBML0k7g.hgK5v2qq9SDTnus14V4uEi-KJY_uRzivGmLQ7tJt0zsZV8D5zFYpBRHQOuQue3TMg-NWCWxnXmaLYWySLu_XoA.sc3"
+        },
+        "requestHeaders": {
+          "X-Gigya-Test-Name": "requirePasswordChange-on-login-extension"
+        }
+      }
+    ],
+    "delayMs": null,
+    "result": {
+      "status": "OK"
+    }
   },
+  
   {
     "id": "delay_3000",
     "httpCalls": [
