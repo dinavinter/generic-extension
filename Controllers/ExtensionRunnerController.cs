@@ -39,7 +39,11 @@ namespace GenericExtesion.Controllers
             _logger.LogInformation("payload:\r\n"+ JsonSerializer.Serialize(payload));
             _logger.LogInformation("extension:\r\n"+ JsonSerializer.Serialize(extensionModel));
             
+            
+            
+            
             await Task.WhenAll(extensionModel.HttpCalls
+                .Where(e=> e.Enabled(payload))
                 .Select(e => e.GetRequest(payload))
                 .Select(_httpClient.SendAsync)
                 .Select(LogResponse));

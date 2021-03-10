@@ -74,6 +74,8 @@ namespace GenericExtesion
 
         public HttpMethod HttpMethod = HttpMethod.Get;
 
+        public Dictionary<string, object> Predicates { get; set; } = new Dictionary<string, object>();
+        
         public HttpRequestMessage GetRequest(ExtensionPayload payload) =>
             new HttpRequestMessage()
             {
@@ -83,6 +85,11 @@ namespace GenericExtesion
                         $"{e.Key}={payload.GetValue(e.Value?.ToString())}"))
                 }.Uri,
             };
+
+        public bool Enabled(ExtensionPayload payload)
+        {
+            return Predicates.All(e => payload.GetValue(e.Key) == e.Value);
+        }
 
     }
 
