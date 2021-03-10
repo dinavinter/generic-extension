@@ -10,7 +10,7 @@ using Swashbuckle.AspNetCore.Filters;
 namespace GenericExtesion.Controllers
 {
     [ApiController]
-    [Route("extension/run")]
+    [Route("{extensionId}/run")]
     public class ExtensionRunnerController : ControllerBase
     {
         private readonly ILogger<ExtensionRunnerController> _logger;
@@ -26,7 +26,7 @@ namespace GenericExtesion.Controllers
         }
 
         /// <param name="extensionId" example="set_require_password_change">The extension</param> 
-        [HttpPost("{extensionId}")]
+        [HttpPost()]
         [SwaggerRequestExample(typeof(ExtensionPayload), typeof(ExtensionPayloadExample))] 
         public async Task<dynamic> Execute([FromRoute] string extensionId, [FromBody] ExtensionPayload payload)
         {
