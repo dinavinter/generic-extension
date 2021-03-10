@@ -5,9 +5,13 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Dynamic;
+using System.Linq;
+using System.Net.Http;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using HttpMethod = Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpMethod;
 
 namespace GenericExtesion
 {
@@ -28,15 +32,26 @@ namespace GenericExtesion
     ///
     /// </remarks>
     public class ExtensionModel
-    {
-        public string Id { get; set; }
+    { 
+        public string? Id { get; set; }
 
         public HttpCall[] HttpCalls { get; set; } = new HttpCall[0];
 
-        public int DelayMs { get; set; }
-        public dynamic Result { get; set; }
-        
-        
+        public int? DelayMs { get; set; }
+        public dynamic Result { get; set; } = new {status = "OK"};
+
+
+        public Task Delay(HttpContext context)
+        {
+            if (DelayMs != null)
+            {
+                context.Response.Headers["X-DelayFor"] = TimeSpan.FromMilliseconds(DelayMs.Value).ToString();
+
+                return Task.Delay(DelayMs.Value);
+                
+            }
+            return Task.CompletedTask;
+        }
     }
 
 
@@ -58,6 +73,17 @@ namespace GenericExtesion
         public ExpandoObject RequestHeaders { get; set; }
 
         public HttpMethod HttpMethod = HttpMethod.Get;
+
+        public HttpRequestMessage GetRequest(ExtensionPayload payload) =>
+            new HttpRequestMessage()
+            {
+                RequestUri = new UriBuilder(BaseUrl)
+                {
+                    Query = string.Join('&', RequestParameters.Select(e =>
+                        $"{e.Key}={payload.GetValue(e.Value?.ToString())}"))
+                }.Uri,
+            };
+
     }
 
     public class TypedDynamicJson : DynamicObject

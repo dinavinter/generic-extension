@@ -34,22 +34,15 @@ namespace GenericExtesion.Controllers
             if (extensionModel == null)
                 return NotFound();
 
-            await Task.Delay(extensionModel.DelayMs);
+            await extensionModel.Delay(HttpContext);
 
             await Task.WhenAll(extensionModel.HttpCalls
-                .Select(
-                    e => new HttpRequestMessage()
-                    {
-                        RequestUri = new UriBuilder(e.BaseUrl)
-                        {
-                            Query = string.Join('&', e.RequestParameters.Select(e =>
-                                $"{e.Key}={payload.GetValue(e.Value?.ToString())}"))
-                        }.Uri,
-                    }).Select(message => _httpClient.SendAsync(message))
+                .Select(e => e.GetRequest(payload))
+                .Select(_httpClient.SendAsync)
                 .Select(LogResponse));
+                   
 
-            Response.Headers["X-DelayFor"] = TimeSpan.FromMilliseconds(extensionModel.DelayMs).ToString();
-            return Ok(extensionModel.Result ?? new {status = "OK"});
+            return Ok(extensionModel.Result);
         }
 
         private async Task LogResponse(Task<HttpResponseMessage> response) => Log(await Json(await response));
