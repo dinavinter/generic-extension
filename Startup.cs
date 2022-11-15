@@ -18,6 +18,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SampleExtensionReceiver.Auth;
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -44,11 +45,14 @@ namespace GenericExtesion
                 c.IncludeXmlComments(xmlPath);
                 c.ExampleFilters();
             });
+            
+            services.AddOptions<JwtOptions>().BindConfiguration("Jwt");
+
+        
 
             services.AddSwaggerExamplesFromAssemblyOf<ExtensionModelExample>();
             services.AddSwaggerExamplesFromAssemblyOf<ExtensionPayloadExample>();
             services.AddHttpClient();
-            services.AddHttpClient<ExtensionRunnerController>();
             services
                 .AddDbContext<ExtensionDbContext>(options => options.UseInMemoryDatabase("ExtensionDb"))
                 .AddEntityFrameworkInMemoryDatabase();

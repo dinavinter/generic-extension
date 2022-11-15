@@ -1,13 +1,5 @@
-using System;
-using System.ComponentModel;
-using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Text.Json;
-using System.Text.Json.Serialization;
- using JsonReader=Newtonsoft.Json.JsonReader; 
 using BlushingPenguin.JsonPath;
-using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace GenericExtesion
 {
